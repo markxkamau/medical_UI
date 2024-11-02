@@ -5,11 +5,27 @@ import Drug from "../Drug/Drug";
 import Stock from "../Stock/Stock";
 import Test from "../Test/Test";
 import PatientInput from "../Patient/PatientInput";
+import PatientRegistration from "../Patient/PatientRegistration";
 
-export default function Body(patient, drug, test, param) {
+const Body = (props) => {
+  const { page, onLogin } = props;
+
   return (
     <>
-     <PatientInput param = {param}/>
+      {page === "patient" && (
+        <>
+          <Patient />
+          <Graph />
+          <Drug />
+          <Stock />
+          <Test />
+        </>
+      )}
+
+      {page === "register" && <PatientInput />}
+      {page === "login" && <PatientRegistration  onLogin = {onLogin}/>}
     </>
   );
-}
+};
+
+export default Body;

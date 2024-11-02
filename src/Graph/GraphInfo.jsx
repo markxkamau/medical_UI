@@ -3,7 +3,8 @@ import React from "react";
 export default function Graph(patient) {
   return (
     <>
-      <div className="w-full 2xl:w-2/3 bg-gray-100">
+    {/* Adjust  the width and height of the graph as needed */}
+      <div className="w-full  bg-gray-100">
         <div className="min-h-screen bg-gray-100 p-6">
           <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold text-gray-900">
