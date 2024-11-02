@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mark Kamau</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @media print {
+        @page {
+          margin: 1.5cm;
+        }
+        body {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+        .page-break {
+          page-break-before: always;
+        }
+        .no-break {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+    <style>
+      @media print {
+        @page {
+          margin: 1cm;
+        }
+        body {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+        .page-break {
+          page-break-before: always;
+        }
+        .no-break {
+          page-break-inside: avoid;
+        }
+      }
+
+      /* Styles to fit content onto the first page */
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        font-size: 0.9rem; /* Reduce font size for headings */
+      }
+
+      p,
+      li,
+      span {
+        font-size: 0.75rem; /* Reduce font size for paragraph and list items */
+        line-height: 1rem;
+      }
+
+      .max-w-[21cm] {
+        max-width: 20cm; /* Reduce max width to fit content better */
+      }
+
+      .flex.gap-2,
+      .flex.gap-4 {
+        gap: 0.5rem; /* Reduce gaps between flex items */
+      }
+
+      .mb-1,
+      .mb-2 {
+        margin-bottom: 0.5rem !important; /* Reduce margin-bottom for items */
+      }
+
+      .space-y-1,
+      .space-y-0.5,
+      .space-y-4 {
+        gap: 0.25rem; /* Reduce spacing in 'space-y' classes */
+      }
+
+      ul.list-disc.pl-4 {
+        padding-left: 1rem; /* Slightly reduce padding for lists */
+      }
+
+      .text-lg {
+        font-size: 0.85rem; /* Smaller font size for section headers */
+      }
+    </style>
+  </head>
+  <body class="bg-white text-sm">
+    <div class="max-w-[21cm] mx-auto p-4">
+      <!-- Header Section -->
+      <div class="flex justify-between items-start mb-1">
+        <div>
+          <h1 class="text-2xl font-bold mb-1">Mark Kamau</h1>
+          <div class="space-y-0.5 text-sm">
+            <p>Weinleite 2, 85125 Kinding</p>
+            <p>markxkamau@gmail.com • +4915205640212</p>
+            <p>LinkedIn: linkedin.com/in/mark-kamau-250979208</p>
+            <p>Geburtsdatum: 07. Jan 2000</p>
+          </div>
+        </div>
+         <img
+          src="/mnt/C0984CB9984CB028/Ki/Images/Business Dp.jpg"
+          alt="Profile"
+          class="w-[90px] h-auto"
+        />
+      </div>
+
+      <!-- Professional Experience -->
+      <div class="mb-1">
+        <h2 class="text-lg font-bold border-b border-gray-300 mb-2">
+          Berufserfahrung
+        </h2>
+        <div class="space-y-1">
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">03/2024 - Heute</div>
+            <div>
+              <h3 class="font-semibold">Softwareentwickler</h3>
+              <p class="italic">ResQme, Remote (Teilzeit)</p>
+              <p class="text-sm">
+                Entwickelte mit React.js und Node.js eine App mit
+                KI-Szenarioerkennung zur Unterstützung von Menschen in
+                Naturkatastrophensituationen, die innerhalb der ersten 5 Monate
+                zum Interesse von 3 Rettungsunternehmen führte.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">09/2023 - 02/2024</div>
+            <div>
+              <h3 class="font-semibold">Softwareentwickler - Automatisierung</h3>
+              <p class="italic">Bühler GmbH, Beilngries</p>
+              <p class="text-sm">
+                Konfiguration und Optimierung von SCADA-Systemen. Reduzierte
+                Softwarebereitstellungszeit um 40% durch Vorbereitung der
+                Umgebung für kundenspezifische Anpassungen. Nutzung von
+                CI/CD-Pipelines (Azure DevOps) und Wartung von SQL-Datenbanken.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="mb-1">
+        <h2 class="text-lg font-bold border-b border-gray-300 mb-2">
+          Projekte
+        </h2>
+        <div class="space-y-1">
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">03/2023 - Heute</div>
+            <div>
+              <h3 class="font-semibold">Medikamenten-Tracking-System</h3>
+              <p class="text-sm">
+                Java-basierte Webanwendung zur Verwaltung von Patientendaten.
+                Verbessert die Medikamenteneinhaltung um 100%. Technologien:
+                Java, Spring Boot, Spring Data JPA, PostgreSQL, REST APIs.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">01/2022 - Heute</div>
+            <div>
+              <h3 class="font-semibold">Wärmebild-Sicherheitssystem</h3>
+              <p class="text-sm">
+                Duales System zur Sicherheitsüberwachung mit Wärmebildkameras.
+                40% Genauigkeit bei der Objekterkennung. Umsetzung mit Python,
+                OpenCV, Arduino IDE, Raspberry Pi und ESP32-Cam.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">05/2022 - 07/2022</div>
+            <div>
+              <h3 class="font-semibold">Kontaktmanagement-Anwendung</h3>
+              <p class="text-sm">
+                Spring Boot Anwendung mit CRUD-Funktionalitäten. 90% schnellere
+                Informationsabfrage bei 80% weniger Speicherplatzbedarf.
+                Technologien: Java, Spring Boot, Thymeleaf, PostgreSQL.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Force page break after projects -->
+
+      <!-- Education Section -->
+      <div class="mb-2">
+        <h2 class="text-lg font-bold border-b border-gray-300 mb-1">Studium</h2>
+        <div class="flex gap-4 mb-1">
+          <div class="w-32 flex-shrink-0">08/2018 - 11/2022</div>
+          <div>
+            <h3 class="font-semibold">Bachelor of Science, Informatik</h3>
+            <p class="text-sm">St. Paul's University, Limuru, Kenia</p>
+          </div>
+        </div>
+
+        <h3 class="font-semibold border-b border-gray-300 mt-1 mb-1">
+          Studienbegleitende Nebentätigkeiten
+        </h3>
+        <div class="space-y-1">
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">08/2022 - 09/2023</div>
+            <div>
+              <h4 class="font-semibold">Online Tutor</h4>
+              <p class="text-sm">Selbstständig, Online</p>
+              <p class="text-sm">
+                Bereitstellung von personalisierter Online-Nachhilfe in
+                Website-Entwicklung, Programmierung, Cloud Computing und
+                Systemsicherheit für Schüler.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="w-32 flex-shrink-0">05/2022 - 07/2022</div>
+            <div>
+              <h4 class="font-semibold">Praktikum</h4>
+              <p class="text-sm">Simlaw Seeds Ltd, Nairobi, Kenia</p>
+              <p class="text-sm">
+                Entwicklung und Implementierung eines digitalen
+                Kontaktabrufsystems. Reduzierung des Papierkrams um 75% und
+                Steigerung der Mitarbeiterproduktivität um 25%.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills and Languages in 2-column layout -->
+      <div class="grid grid-cols-2 gap-6 mb-4">
+        <div>
+          <h2 class="text-lg font-bold border-b border-gray-300 mb-2">
+            IT-Kenntnisse
+          </h2>
+          <ul class="list-disc pl-4 text-sm space-y-1">
+            <li>Programmiersprachen: Java, C#, Python, C++, JavaScript</li>
+            <li>Frameworks: Spring Boot, .NET, Django, React.js, Thymeleaf</li>
+            <li>Datenbanken: MySQL, PostgreSQL, MongoDB, SQL</li>
+            <li>Tools: Git, Docker, Azure, Linux</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-bold border-b border-gray-300 mb-2">
+            Sprachkenntnisse
+          </h2>
+          <div class="text-sm space-y-1">
+            <div class="flex justify-between">
+              <span>Englisch</span>
+              <span>Fließend</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Deutsch</span>
+              <span>B1</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Swahili</span>
+              <span>Muttersprache</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interests and References -->
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-lg font-bold border-b border-gray-300 mb-2">
+            Interessen
+          </h2>
+          <p class="text-sm">
+            Deutsche Sprache & Kultur, Technologien wie Quantencomputing und KI,
+            Musik, Sport - Fahrrad
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-bold border-b border-gray-300 mb-2">
+            Referenzen
+          </h2>
+          <p class="text-sm">Referenzen auf Anfrage verfügbar.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
