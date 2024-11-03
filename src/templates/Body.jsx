@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Patient from "../Patient/Patient";
 import Graph from "../Graph/GraphInfo";
 import Drug from "../Drug/Drug";
 import Stock from "../Stock/Stock";
 import Test from "../Test/Test";
-import PatientInput from "../Patient/PatientInput";
-import PatientRegistration from "../Patient/PatientRegistration";
+import UserRegistration from "../user/UserRegistration";
+import UserLogin from "../user/UserLogin";
 
 const Body = (props) => {
   const { page, onLogin } = props;
@@ -22,8 +22,8 @@ const Body = (props) => {
         </>
       )}
 
-      {page === "register" && <PatientInput />}
-      {page === "login" && <PatientRegistration  onLogin = {onLogin}/>}
+      {page === "register" && <UserRegistration onLogin={onLogin}/>}
+      {page === "login" && <UserLogin onLogin={onLogin} />}
     </>
   );
 };

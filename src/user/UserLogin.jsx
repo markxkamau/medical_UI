@@ -1,36 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function PatientInput(props) {
-  const [firstName, setFirstName] = useState("login");
-  const [lastName, setLastName] = useState("login");
-  const [email, setEmail] = useState("login");
-  const [condition, setCondition] = useState("login");
-  const [drugCount, setDrugCount] = useState("login");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+const UserLogin = (props) => {
+  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [user, setUser] = React.useState([]);
+  const { onLogin } = props;
 
-  const [patients, setPatients] = useState([]);
-  const{onLogin} = props;
-
-  function registerPatient(e) {
+  const validateUser = (e) => {
     e.preventDefault();
 
-    setPatients((currentPatient) => {
-      return [
-        ...currentPatient,
-        {
-          id: crypto.randomUUID,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          condition: condition,
-          drugCount: drugCount,
-          password: password,
-          confirmPassword: confirmPassword,
-        },
-      ];
+    if (username === "" || email === "" || password === "") {
+      alert("Please fill in all fields");
+      return false;
+    }
+
+    setUser((currentUser) => {
+      return [...currentUser, { username, email, password }];
     });
-  }
+
+    onLogin(username);
+  };
 
   return (
     <>
@@ -42,26 +32,13 @@ export default function PatientInput(props) {
 
         {/* Right side for registration form */}
         <div className="w-1/2 flex items-center justify-center">
-          <form className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+          <form
+            className="w-full max-w-md bg-white p-8 rounded-lg shadow-md"
+            onSubmit={validateUser}
+          >
             <h2 className="text-2xl font-semibold mb-6 text-center">
-              Create Account
+              Log in
             </h2>
-
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="username"
-              >
-                Username
-              </label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
 
             <div className="mb-4">
               <label
@@ -75,6 +52,8 @@ export default function PatientInput(props) {
                 type="email"
                 placeholder="Enter your email"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 required
               />
             </div>
@@ -91,6 +70,8 @@ export default function PatientInput(props) {
                 type="password"
                 placeholder="Enter your password"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 required
               />
             </div>
@@ -99,16 +80,15 @@ export default function PatientInput(props) {
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => onLogin("firstName")}
               >
-                Register
+                Login
               </button>
             </div>
 
             <p className="mt-4 text-center text-gray-600 text-sm">
-              Already have an account?{" "}
+              Don't have an account?{" "}
               <a href="#" className="text-blue-500 hover:text-blue-700">
-                Login
+                Clcik to Register
               </a>
             </p>
           </form>
@@ -116,4 +96,6 @@ export default function PatientInput(props) {
       </div>
     </>
   );
-}
+};
+
+export default UserLogin;

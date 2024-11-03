@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Graph(patient) {
+export default function Graph(props) {
   return (
     <>
     {/* Adjust  the width and height of the graph as needed */}

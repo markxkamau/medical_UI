@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Patient(patientInfo) {
+export default function Patient(props) {
   return (
     <>
       <div className="flex-1 bg-white rounded-lg shadow-xl p-8">

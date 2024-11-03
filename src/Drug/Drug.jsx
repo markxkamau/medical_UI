@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Drug() {
+export default function Drug(props) {
   return (
     <>
       <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">

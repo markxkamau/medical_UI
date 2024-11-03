@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Stock() {
+export default function Stock(props) {
   return (
     <>
       {" "}
