@@ -8,7 +8,7 @@ import UserRegistration from "../user/UserRegistration";
 import UserLogin from "../user/UserLogin";
 
 const Body = (props) => {
-  const { page, onLogin } = props;
+  const { page, onLogin , handlePageChange} = props;
 
   return (
     <>
@@ -22,8 +22,8 @@ const Body = (props) => {
         </>
       )}
 
-      {page === "register" && <UserRegistration onLogin={onLogin}/>}
-      {page === "login" && <UserLogin onLogin={onLogin} />}
+      {page === "register" && <UserRegistration onLogin={onLogin} handlePageChange={handlePageChange}/>}
+      {page === "login" && <UserLogin onLogin={onLogin} handlePageChange={handlePageChange}/>}
     </>
   );
 };

@@ -13,17 +13,17 @@ export default function Patient(props) {
               {/**th:object="${patient_data}" */}
               <li className="flex border-y py-2">
                 <span className="font-bold w-24">Full name:</span>
-                <p className="text-gray-700">{patientInfo.name}</p>
+                <p className="text-gray-700">{props.name}</p>
                 {/**th:text="*{name}" */}
               </li>
               <li className="flex border-b py-2">
                 <span className="font-bold w-24">Email:</span>
-                <p className="text-gray-700">{patientInfo.email}</p>
+                <p className="text-gray-700">{props.email}</p>
                 {/**th:text="*{email}" */}
               </li>
               <li className="flex border-b py-2">
                 <span className="font-bold w-24">Condition:</span>
-                <p className="text-gray-700">{patientInfo.condition}</p>
+                <p className="text-gray-700">{props.condition}</p>
                 {/**th:text="*{condition}" */}
               </li>
             </ul>
@@ -32,7 +32,7 @@ export default function Patient(props) {
             className=" border border-gray-400 rounded flex justify-center items-center w-40 h-40"
             style={{ justifyContent: "space-between" }}
           >
-            <img src = {patientInfo.image} alt="Profile Photo"/>
+            <img src = {props.image} alt="Profile Photo"/>
             {/**th:if="${patient_data.photoAvailable != false}"th:attr="src='data:image/jpeg;base64,' + ${image}"*/}
           </div>
         </div>

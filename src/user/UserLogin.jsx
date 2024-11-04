@@ -1,25 +1,30 @@
 import React from "react";
 
 const UserLogin = (props) => {
-  const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [user, setUser] = React.useState([]);
-  const { onLogin } = props;
+  const [user, setUser] = React.useState({email, password});
+  const { onLogin, handlePageChange } = props;
 
   const validateUser = (e) => {
     e.preventDefault();
 
-    if (username === "" || email === "" || password === "") {
+    if (email === "" || password === "") {
       alert("Please fill in all fields");
       return false;
     }
 
     setUser((currentUser) => {
-      return [...currentUser, { username, email, password }];
+      return [...currentUser, { email, password }];
     });
 
-    onLogin(username);
+    onLogin(email);
+  };
+
+  const handlePageChanging = (e) => {
+    e.preventDefault();
+
+    handlePageChange("register");
   };
 
   return (
@@ -36,9 +41,7 @@ const UserLogin = (props) => {
             className="w-full max-w-md bg-white p-8 rounded-lg shadow-md"
             onSubmit={validateUser}
           >
-            <h2 className="text-2xl font-semibold mb-6 text-center">
-              Log in
-            </h2>
+            <h2 className="text-2xl font-semibold mb-6 text-center">Log in</h2>
 
             <div className="mb-4">
               <label
@@ -87,7 +90,11 @@ const UserLogin = (props) => {
 
             <p className="mt-4 text-center text-gray-600 text-sm">
               Don't have an account?{" "}
-              <a href="#" className="text-blue-500 hover:text-blue-700">
+              <a
+                href=""
+                onClick={handlePageChanging}
+                className="text-blue-500 hover:text-blue-700"
+              >
                 Clcik to Register
               </a>
             </p>

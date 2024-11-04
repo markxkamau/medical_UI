@@ -8,7 +8,7 @@ const UserRegistration = (props) => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [user, setUser] = React.useState([]);
-  const { onLogin } = props;
+  const { onLogin, handlePageChange } = props;
 
   const validateUser = (e) => {
     e.preventDefault();
@@ -23,14 +23,17 @@ const UserRegistration = (props) => {
       setUser((currentUser) => {
         return [...currentUser, user];
       });
-      onLogin(user.firstName);
-
+    } else {
+      console.log("Passwords do not  match");
     }
-    else{
-        console.log( "Passwords do not  match");
-    }
+    onLogin(user.firstName);
 
+  };
 
+  const handlePageChanging = (e) => {
+    e.preventDefault();
+
+    handlePageChange("login");
   };
 
   return (
@@ -168,7 +171,8 @@ const UserRegistration = (props) => {
             <p className="mt-4 text-center text-gray-600 text-sm">
               Already have an account?{" "}
               <a
-                onClick={() => switchPage("login")}
+                href="#"
+                onClick={handlePageChanging}
                 className="text-blue-500 hover:text-blue-700"
               >
                 Login
