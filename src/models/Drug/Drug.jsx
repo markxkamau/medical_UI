@@ -9,7 +9,6 @@ export default function Drug(props) {
         </h4>
         <div className="overflow-x-auto w-full my-10">
           <table className="w-full leading-normal">
-            {/**th:object="${drug_info}" */}
             <thead>
               <tr>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -28,54 +27,42 @@ export default function Drug(props) {
                   Drug Purpose
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Drug Intakes{/**th:if="${schedule_present}" */}
+                  Drug Intakes
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Drug Time{/** th:if="${schedule_present}"*/}
+                  Drug Time
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"></th>
               </tr>
             </thead>
             <tbody>
-              {/** th:each="drug:${drug_info}"*/}
               <tr>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p className="text-gray-900 whitespace-no-wrap">Admin</p>
-                  {/** th:text="${drug.drugName}"  */}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p className="text-gray-900 whitespace-no-wrap">
                     Jan 21, 2020{" "}
                   </p>
-                  {/**th:text="${drug.drugScientificName}" */}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p className="text-gray-900 whitespace-no-wrap"> 43</p>
-                  {/**th:text="${drug.drugSize}" */}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p className="text-gray-900 whitespace-no-wrap"> 43</p>
-                  {/**th:text="${drug.drugPackaging}" */}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p className="text-gray-900 whitespace-no-wrap">Admin</p>
-                  {/**th:text="${drug.drugPurpose}"*/}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  {/**th:each="schedule:${schedule_info}" th:if="${drug.id == schedule.drug.id}" */}
 
                   <p className="text-gray-900 whitespace-no-wrap"> 43</p>
-                  {/** th:text="${schedule.intakes}"*/}
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  {/**th:each="schedule:${schedule_info}" */}
-                  {/**  th:if="${drug.id == schedule.drug.id}"*/}
                   <ul>
-                    {/**th:each="time : ${schedule.time}" */}
                     <li>
                       <p className="text-gray-900 whitespace-no-wrap"> 43</p>
                     </li>
-                    {/**th:text="${time}" */}
                   </ul>
                 </td>
                 <td
@@ -88,15 +75,12 @@ export default function Drug(props) {
                   className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
                 >
                   <a className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
-                    {/** th:if="${drug.scheduleButton}"  th:href="@{'/medical/new_schedule/'+${drug.id}}"*/}
                     Schedule
                   </a>
                   <a className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
-                    {/**th:if="${!drug.scheduleButton} and ${drug.stockButton}" th:href="@{'/medical/new_stock/'+${drug.id}}"*/}
                     Stock
                   </a>
                   <a>
-                    {/**th:href="@{'/medical/edit_drug/' + ${drug.id}}" */}
                     <svg
                       style={{ width: "20px", height: "20px" }}
                       xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +93,6 @@ export default function Drug(props) {
                     </svg>
                   </a>
                   <a>
-                    {/**th:href="@{'/medical/delete_drug/' + ${drug.id}}" */}
                     <svg
                       style={{ width: "20px", height: "20px" }}
                       xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +112,6 @@ export default function Drug(props) {
         <a className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
           Add Drug
         </a>
-        {/** th:href="@{/medical/add_drug}" */}
       </div>
     </>
   );

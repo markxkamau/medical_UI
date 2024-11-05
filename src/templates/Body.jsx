@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Patient from "../Patient/Patient";
-import Graph from "../Graph/GraphInfo";
-import Drug from "../Drug/Drug";
-import Stock from "../Stock/Stock";
-import Test from "../Test/Test";
+import Patient from "../models/Patient/Patient";
+import Graph from "../models/Graph/GraphInfo";
+import Drug from "../models/Drug/Drug";
+import Stock from "../models/Stock/Stock";
+import Test from "../models/Test/Test";
 import UserRegistration from "../user/UserRegistration";
 import UserLogin from "../user/UserLogin";
 
