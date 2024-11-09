@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const UserRegistration = (props) => {
+const RegisterPage = (props) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = useState("");
   const [condition, setCondition] = useState("");
@@ -8,7 +9,7 @@ const UserRegistration = (props) => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [user, setUser] = React.useState([]);
-  const { onLogin, handlePageChange } = props;
+  const { onLogin } = props;
 
   const validateUser = (e) => {
     e.preventDefault();
@@ -20,21 +21,14 @@ const UserRegistration = (props) => {
         email,
         password,
       };
-      setUser((currentUser) => {
-        return [...currentUser, user];
-      });
+      setUser(user);
     } else {
       console.log("Passwords do not  match");
     }
-    onLogin(user.firstName);
-
+    onLogin(firstName);
   };
 
-  const handlePageChanging = (e) => {
-    e.preventDefault();
 
-    handlePageChange("login");
-  };
 
   return (
     <>
@@ -170,13 +164,9 @@ const UserRegistration = (props) => {
 
             <p className="mt-4 text-center text-gray-600 text-sm">
               Already have an account?{" "}
-              <a
-                href="#"
-                onClick={handlePageChanging}
-                className="text-blue-500 hover:text-blue-700"
-              >
+              <Link to="/login" className="text-blue-500 hover:text-blue-700">
                 Login
-              </a>
+              </Link>
             </p>
           </form>
         </div>
@@ -185,4 +175,4 @@ const UserRegistration = (props) => {
   );
 };
 
-export default UserRegistration;
+export default RegisterPage;

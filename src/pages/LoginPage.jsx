@@ -1,30 +1,37 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const UserLogin = (props) => {
+
+const LoginPage = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [user, setUser] = React.useState({email, password});
-  const { onLogin, handlePageChange } = props;
+  const [user, setUser] = React.useState({ email, password });
+  const { onLogin } = props;
 
   const validateUser = (e) => {
     e.preventDefault();
 
+    // Confirmed the passwordand email are not null
     if (email === "" || password === "") {
       alert("Please fill in all fields");
       return false;
     }
-
-    setUser((currentUser) => {
-      return [...currentUser, { email, password }];
-    });
-
+    // Created a new user object with the email and password
+    setUser(email, password);
     onLogin(email);
-  };
 
-  const handlePageChanging = (e) => {
-    e.preventDefault();
+    //confirm user exists
+    // const userExists = checkForUser(email, password);
 
-    handlePageChange("register");
+    // if (userExists) {
+    //   // Updated the navigation bar with the new user details
+    //   onLogin(email);
+
+    //   //redirect the user to the dashboard
+    //   window.location.href = "/dashboard";
+    // } else {
+    //   alert("Check your inputs and try again");
+    // }
   };
 
   return (
@@ -90,13 +97,12 @@ const UserLogin = (props) => {
 
             <p className="mt-4 text-center text-gray-600 text-sm">
               Don't have an account?{" "}
-              <a
-                href=""
-                onClick={handlePageChanging}
+              <Link
+                to="/register"
                 className="text-blue-500 hover:text-blue-700"
               >
-                Clcik to Register
-              </a>
+                Click here to register
+              </Link>
             </p>
           </form>
         </div>
@@ -105,4 +111,4 @@ const UserLogin = (props) => {
   );
 };
 
-export default UserLogin;
+export default LoginPage;
