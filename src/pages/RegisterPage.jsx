@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Link } from "react-router-dom";
 
 const RegisterPage = (props) => {
@@ -8,7 +8,7 @@ const RegisterPage = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [user, setUser] = React.useState([]);
+  const [user, setUser] = React.useState();
   const { onLogin } = props;
 
   const validateUser = (e) => {
@@ -25,9 +25,13 @@ const RegisterPage = (props) => {
     } else {
       console.log("Passwords do not  match");
     }
-    onLogin(firstName);
   };
 
+  // useEffect(() => {
+  //   if (user) {
+  //     onLogin(user);
+  //   }
+  // }, [user]);  // This effect runs whenever `user` changes
 
 
   return (

@@ -17,8 +17,7 @@ const LoginPage = (props) => {
       return false;
     }
     // Created a new user object with the email and password
-    setUser(email, password);
-    onLogin(email);
+    setUser(onLogin.email, onLogin.password);
 
     //confirm user exists
     // const userExists = checkForUser(email, password);

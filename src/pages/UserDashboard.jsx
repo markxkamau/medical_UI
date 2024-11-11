@@ -1,7 +1,28 @@
 import React from "react";
+import DrugList from "../components/DrugList";
+import PatientData from "../components/PatientData";
 
 function UserDashboard(props) {
   const { user, handleLogout } = props;
+
+  const drugList = {
+    drug1: {
+      name: "Clobazam",
+      scientificName: "Clobazam",
+      size: 10,
+      packaging: "Tablet",
+      purpose: "Minor Seizures",
+      dosage: "10mg",
+      time: ["2100", "0200", "9000"],
+    },
+  };
+
+  const patientInfo = {
+    name: "Name",
+    email: "email@gmail.com",
+    condition: "Unknown",
+    image: "Not Found",
+  };
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Dashboard Content */}
@@ -32,6 +53,8 @@ function UserDashboard(props) {
 
           {/* Add more cards for each feature as needed */}
         </div>
+        <PatientData patient={patientInfo}/>
+        <DrugList drugList={drugList} />
       </main>
     </div>
   );
