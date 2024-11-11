@@ -2,7 +2,7 @@ import React from "react";
 import DrugValues from "./DrugValues";
 import { Link } from "react-router-dom";
 
-export default function DrugList(props) {
+function DrugList(props) {
   return (
     <>
       <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
@@ -52,3 +52,55 @@ export default function DrugList(props) {
     </>
   );
 }
+
+//General information of the drugs
+const MedicationList = ({ medications }) => {
+  return (
+    <>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-blue-100 p-4 rounded-lg">
+          <h4 className="text-lg font-semibold">Current Medications</h4>
+          <p className="text-gray-600">{medications.length} Active</p>
+        </div>
+
+        <div className="bg-green-100 p-4 rounded-lg">
+          <h4 className="text-lg font-semibold">Next Dose</h4>
+          <p className="text-gray-600">{medications.nextDoseTime}</p>
+        </div>
+        <div className="bg-yellow-100 p-4 rounded-lg">
+          <h4 className="text-lg font-semibold">Stock Alerts</h4>
+          <p className="text-gray-600">
+            {medications.stock ? "Stock Low!" : "All Medications Stocked"}
+          </p>
+        </div>
+        <div className="bg-red-100 p-4 rounded-lg">
+          <h4 className="text-lg font-semibold">Missed Doses</h4>
+          <p className="text-gray-600">{medications.missedDoses} Missed</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const values = () => {
+  return (
+    <>
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h3 className="text-xl font-bold text-gray-800 mb-4">
+          Current Medications
+        </h3>
+        <div className="space-y-4">
+          {medications.map((med, index) => (
+            <div key={index} className="bg-blue-100 p-4 rounded-lg">
+              <h4 className="text-lg font-semibold">{med.name}</h4>
+              <p className="text-gray-600">Dosage: {med.dosage}</p>
+              <p className="text-gray-600">Frequency: {med.frequency}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default MedicationList;

@@ -1,35 +1,29 @@
 import React from "react";
-function PatientData(props) {
-  const{patient} = props;
+function PatientInfo(props) {
+  const { patient } = props;
   return (
     <>
-      <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-        <div style={{ justifyContent: "space-between", display: "flex" }}>
-          <h4 className="text-xl text-gray-900 font-bold">Personal Info</h4>
-        </div>
-        <div className="flex " style={{ justifyContent: "space-between" }}>
-          <div className="w-full">
+      <div className="bg-white p-6 rounded-lg shadow-md mb-3 m-2">
+        <h3 className="text-xl font-bold text-gray-800">Patient Information</h3>
+        <div className="flex items-center justify-between">
+          <div className="w-2/3">
             <ul className="mt-2 text-gray-700 ">
-              {/**th:object="${patient_data}" */}
-              <li className="flex border-y py-2">
+              <li className="flex py-2">
                 <span className="font-bold w-24">Full name:</span>
                 <p className="text-gray-700">{patient.name}</p>
-                {/**th:text="*{name}" */}
               </li>
-              <li className="flex border-b py-2">
+              <li className="flex  py-2">
                 <span className="font-bold w-24">Email:</span>
-                <p className="text-gray-700">{patient.email}</p>
-                {/**th:text="*{email}" */}
+                <p className="text-gray-700 ">{patient.email}</p>
               </li>
-              <li className="flex border-b py-2">
+              <li className="flex py-2">
                 <span className="font-bold w-24">Condition:</span>
                 <p className="text-gray-700">{patient.condition}</p>
-                {/**th:text="*{condition}" */}
               </li>
             </ul>
           </div>
           <div
-            className=" border border-gray-400 rounded flex justify-center items-center w-40 h-40"
+            className=" border border-gray-400 rounded flex justify-center w-1/3 "
             style={{ justifyContent: "space-between" }}
           >
             <img src={patient.image} alt="Profile Photo" />
@@ -40,4 +34,34 @@ function PatientData(props) {
     </>
   );
 }
-export default PatientData;
+const PatientData = ({ patient }) => {
+  return (
+    <>
+      {/* Patient Info Section */}
+      <div className="bg-white p-6 rounded-lg shadow-md mb-3 m-2">
+        <h3 className="text-xl font-bold text-gray-800 mb-4">
+          Patient Information
+        </h3>
+        <div className="flex items-center">
+          {/* Optional Profile Image */}
+          <div className="w-20 h-20 rounded-full overflow-hidden mr-4">
+            <img
+              src={patient.image || "/default-avatar.png"}
+              alt="Patient"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <p className="text-lg font-semibold text-gray-800">
+              {patient.name}
+            </p>
+            <p className="text-gray-600">Condition: {patient.condition}</p>
+
+            <p className="text-gray-600">Contact: {patient.email}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+export default PatientInfo;

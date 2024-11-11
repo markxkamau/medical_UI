@@ -27,11 +27,11 @@ const RegisterPage = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     onLogin(user);
-  //   }
-  // }, [user]);  // This effect runs whenever `user` changes
+  useEffect(() => {
+    if (user) {
+      onLogin(user);
+    }
+  }, [user]);  // This effect runs whenever `user` changes
 
 
   return (

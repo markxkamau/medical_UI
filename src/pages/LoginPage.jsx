@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
 const LoginPage = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [user, setUser] = React.useState({ email, password });
+  const [user, setUser] = React.useState();
   const { onLogin } = props;
 
   const validateUser = (e) => {
@@ -17,7 +17,11 @@ const LoginPage = (props) => {
       return false;
     }
     // Created a new user object with the email and password
-    setUser(onLogin.email, onLogin.password);
+    const currentUser = {
+      email: email,
+      password: password,
+    }
+    setUser(currentUser.email, currentUser.password);
 
     //confirm user exists
     // const userExists = checkForUser(email, password);
@@ -32,6 +36,10 @@ const LoginPage = (props) => {
     //   alert("Check your inputs and try again");
     // }
   };
+
+  useEffect(()=>{
+    console.log(user)
+  })
 
   return (
     <>

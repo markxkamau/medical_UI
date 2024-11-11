@@ -35,7 +35,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Navigation userName={userName} />
+        <Navigation companyName={userName} />
         <main>
           <Routes>
             <Route path="/" exact element={<HomePage />} />

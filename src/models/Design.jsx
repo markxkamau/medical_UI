@@ -36,32 +36,14 @@ function Design(props) {
 
   return (
     <>
-      {/* Patient Info Section */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">
-          Patient Information
-        </h3>
-        <div className="flex items-center">
-          {/* Optional Profile Image */}
-          <div className="w-20 h-20 rounded-full overflow-hidden mr-4">
-            {/* <img src={patient.profilePicture || '/default-avatar.png'} alt="Patient" className="w-full h-full object-cover" /> */}
-          </div>
-          <div>
-            <p className="text-lg font-semibold text-gray-800">patient.name</p>
-            <p className="text-gray-600">Age: patient.age</p>
-            <p className="text-gray-600">Medical ID: patient.medical</p>
-            <p className="text-gray-600">Contact: patient.contactNumber</p>
-            {/* {patient.allergies && (
-              <p className="text-gray-600 mt-2">Allergies: {patient.allergies}</p>
-            )} */}
-          </div>
-        </div>
-      </div>
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      
+      <div className="bg-gray-200 p-6 rounded-lg shadow-md">
         <h3 className="text-xl font-bold text-gray-800 mb-4">
           Dashboard Overview
         </h3>
-        <div className="grid grid-cols-2 gap-6">
+
+        {/* <DrugList /> */}
+        <div className="grid grid-cols-2 gap-6 bg-blue-200">
           <div className="bg-blue-100 p-4 rounded-lg">
             <h4 className="text-lg font-semibold">Current Medications</h4>
             <p className="text-gray-600">{medications.length} Active</p>
@@ -80,7 +62,7 @@ function Design(props) {
               ))}
             </div> */}
           {/* </div> */}
-          <div className="bg-green-100 p-4 rounded-lg">
+          <div className="bg-green-100 p-4 rounded-lg ">
             <h4 className="text-lg font-semibold">Next Dose</h4>
             <p className="text-gray-600">{medications.nextDoseTime}</p>
           </div>
@@ -96,8 +78,8 @@ function Design(props) {
           </div>
         </div>
       </div>
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        {/* <h3 className="text-xl font-bold text-gray-800 mb-4">
+      {/* <div className="bg-white p-6 rounded-lg shadow-md"> */}
+      {/* <h3 className="text-xl font-bold text-gray-800 mb-4">
           Medication Schedule
         </h3>
         <div className="space-y-4">
@@ -119,31 +101,34 @@ function Design(props) {
               Take Now
             </button>
           </div> */}
-        {/* Add more as needed */}
-        {/* </div> */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">
-            Medication Schedule
-          </h3>
-          <div className="space-y-4">
-            {medications.map((med, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <div>
-                  <h4 className="font-semibold">{med.name}</h4>
-                  <p className="text-gray-600">Next Dose: {med.nextDoseTime}</p>
-                </div>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleTakeMedication(med.id)}
-                >
-                  Take Now
-                </button>
+      {/* Add more as needed */}
+      {/* </div> */}
+
+      {/* <DrugSchedule /> */}
+      <div className="bg-blue-200 p-6 rounded-lg shadow-md">
+        <h3 className="text-xl font-bold text-gray-800 mb-4">
+          Medication Schedule
+        </h3>
+        <div className="space-y-4">
+          {medications.map((med, index) => (
+            <div key={index} className="flex justify-between items-center">
+              <div>
+                <h4 className="font-semibold">{med.name}</h4>
+                <p className="text-gray-600">Next Dose: {med.nextDoseTime}</p>
               </div>
-            ))}
-          </div>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => handleTakeMedication(med.id)}
+              >
+                Take Now
+              </button>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      {/* </div> */}
+      {/* <DrugStock /> */}
+      <div className="bg-green-200 p-6 rounded-lg shadow-md">
         <h3 className="text-xl font-bold text-gray-800 mb-4">
           Medication Stock
         </h3>
@@ -214,6 +199,7 @@ function Design(props) {
       {/* </div>
         </div>
       </div> */}
+      {/* <HelthstatusOrPatientStatus /> */}
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h3 className="text-xl font-bold text-gray-800 mb-4">Health Stats</h3>
         <div className="space-y-4">
@@ -226,7 +212,7 @@ function Design(props) {
           ))}
         </div>
       </div>
-
+      {/* <Notification /> */}
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h3 className="text-xl font-bold text-gray-800 mb-4">Notifications</h3>
         <div className="space-y-4">
