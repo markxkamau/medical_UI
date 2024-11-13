@@ -51,6 +51,9 @@ const LoginPage = (props) => {
 
         {/* Right side for registration form */}
         <div className="w-1/2 flex items-center justify-center">
+        {/* <Form values={setUser}/>
+        <Button type={buttonType}/> */}
+
           <form
             className="w-full max-w-md bg-white p-8 rounded-lg shadow-md"
             onSubmit={validateUser}

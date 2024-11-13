@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const RegisterPage = (props) => {
@@ -31,8 +31,7 @@ const RegisterPage = (props) => {
     if (user) {
       onLogin(user);
     }
-  }, [user]);  // This effect runs whenever `user` changes
-
+  }, [user]);
 
   return (
     <>
