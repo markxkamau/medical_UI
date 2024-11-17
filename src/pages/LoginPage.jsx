@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = (props) => {
   const [email, setEmail] = React.useState("");
@@ -8,38 +7,30 @@ const LoginPage = (props) => {
   const [user, setUser] = React.useState();
   const { onLogin } = props;
 
+  const navigate = useNavigate();
+
   const validateUser = (e) => {
     e.preventDefault();
 
-    // Confirmed the passwordand email are not null
+    // Confirm the password and email are not null
     if (email === "" || password === "") {
-      alert("Please fill in all fields");
       return false;
     }
+
     // Created a new user object with the email and password
     const currentUser = {
       email: email,
       password: password,
-    }
-    setUser(currentUser.email, currentUser.password);
+    };
 
-    //confirm user exists
-    // const userExists = checkForUser(email, password);
+    // Set the user in state (if needed for the parent component)
+    setUser(currentUser);
+    console.log("Current User:", currentUser);
 
-    // if (userExists) {
-    //   // Updated the navigation bar with the new user details
-    //   onLogin(email);
-
-    //   //redirect the user to the dashboard
-    //   window.location.href = "/dashboard";
-    // } else {
-    //   alert("Check your inputs and try again");
-    // }
+    // Pass the user data to the parent via onLogin
+    onLogin(currentUser);
+    navigate("/dashboard");
   };
-
-  useEffect(()=>{
-    console.log(user)
-  })
 
   return (
     <>
@@ -51,7 +42,7 @@ const LoginPage = (props) => {
 
         {/* Right side for registration form */}
         <div className="w-1/2 flex items-center justify-center">
-        {/* <Form values={setUser}/>
+          {/* <Form values={setUser}/>
         <Button type={buttonType}/> */}
 
           <form

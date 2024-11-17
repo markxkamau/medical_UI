@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = (props) => {
   const [firstName, setFirstName] = React.useState("");
@@ -10,6 +10,7 @@ const RegisterPage = (props) => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [user, setUser] = React.useState();
   const { onLogin } = props;
+  const navigate = useNavigate();
 
   const validateUser = (e) => {
     e.preventDefault();
@@ -22,16 +23,12 @@ const RegisterPage = (props) => {
         password,
       };
       setUser(user);
+      onLogin(user);
+      navigate("/dashboard");
     } else {
-      console.log("Passwords do not  match");
+      console.log("Passwords do not match");
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      onLogin(user);
-    }
-  }, [user]);
 
   return (
     <>

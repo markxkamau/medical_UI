@@ -5,29 +5,28 @@ import DrugSchedule from "../components/DrugSchedule";
 import DrugStock from "../components/DrugStock";
 import HealthStatus from "../components/HealthStatus";
 import Notification from "../components/Notification";
-function UserDashboard(props) {
-  const { user, handleLogout } = props;
+function UserDashboard({patientInfo}) {
 
   //Drug input by patient so as to and to the backend > drugInputRequest
-  const drugList = [
-    {
-      name: "Clobazam",
-      scientificName: "Clobazam",
-      size: 10,
-      packaging: "Tablet",
-      purpose: "Minor Seizures",
-      dosage: "10mg",
-      time: ["2100", "0200", "9000"],
-    },
-  ];
+  // const drugList = [
+  //   {
+  //     name: "Clobazam",
+  //     scientificName: "Clobazam",
+  //     size: 10,
+  //     packaging: "Tablet",
+  //     purpose: "Minor Seizures",
+  //     dosage: "10mg",
+  //     time: ["2100", "0200", "9000"],
+  //   },
+  // ];
 
   //Patient Login and Registration to Capture this information > patientDataRequest
-  const patientInfo = {
-    name: "Mark Kamau",
-    email: "markxkamau@gmail.com",
-    condition: "Epilepsy",
-    image: "Not Found",
-  };
+  // const patientInfo = {
+  //   name: "Mark Kamau",
+  //   email: "markxkamau@gmail.com",
+  //   condition: "Epilepsy",
+  //   image: "Not Found",
+  // };
 
   //Backend request to capture this information > medicationListRequest
   const medications = [
@@ -65,8 +64,8 @@ function UserDashboard(props) {
           <MedicationList medications={medications} />
           <DrugSchedule medications={medications} />
           <DrugStock medications={medications} />
-          <HealthStatus medications = {medications} />
-          <Notification medications={medications}/>
+          <HealthStatus medications={medications} />
+          <Notification medications={medications} />
         </div>
       </main>
     </div>

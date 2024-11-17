@@ -10,7 +10,7 @@ function PatientInfo(props) {
             <ul className="mt-2 text-gray-700 ">
               <li className="flex py-2">
                 <span className="font-bold w-24">Full name:</span>
-                <p className="text-gray-700">{patient.name}</p>
+                <p className="text-gray-700">{`${patient.firstName} ${patient.lastName}`}</p>
               </li>
               <li className="flex  py-2">
                 <span className="font-bold w-24">Email:</span>
@@ -23,7 +23,7 @@ function PatientInfo(props) {
             </ul>
           </div>
           <div
-            className=" border border-gray-400 rounded flex justify-center w-1/3 "
+            className="border border-gray-400 rounded flex justify-center w-1/3 "
             style={{ justifyContent: "space-between" }}
           >
             <img src={patient.image} alt="Profile Photo" />
