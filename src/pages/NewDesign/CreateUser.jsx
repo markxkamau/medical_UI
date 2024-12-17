@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const RegisterPage = (props) => {
+const CreateUser = (props) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = useState("");
   const [condition, setCondition] = useState("");
@@ -173,7 +173,6 @@ const RegisterPage = (props) => {
       </div>
     </>
   );
-
 };
 
-export default RegisterPage;
+export default CreateUser;

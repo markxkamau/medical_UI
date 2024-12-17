@@ -5,8 +5,8 @@ import DrugSchedule from "../components/DrugSchedule";
 import DrugStock from "../components/DrugStock";
 import HealthStatus from "../components/HealthStatus";
 import Notification from "../components/Notification";
-function UserDashboard({patientInfo}) {
 
+function UserDashboard({ patientInfo }) {
   //Drug input by patient so as to and to the backend > drugInputRequest
   // const drugList = [
   //   {
@@ -51,6 +51,7 @@ function UserDashboard({patientInfo}) {
       adherence: 88,
     },
   ];
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Dashboard Content */}
@@ -66,34 +67,11 @@ function UserDashboard({patientInfo}) {
           <DrugStock medications={medications} />
           <HealthStatus medications={medications} />
           <Notification medications={medications} />
+        
         </div>
       </main>
     </div>
   );
-}
-
-const variable = () => {
-  return (
-    <>
-      {/* Example Card */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Feature 1</h3>
-        <p className="text-gray-600">
-          Brief description of this feature and how it benefits the user.
-        </p>
-        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Go to Feature 1
-        </button>
-      </div>
-
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Feature 2</h3>
-        <p className="text-gray-600">Brief description of another feature.</p>
-        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Go to Feature 2
-        </button>
-      </div>
-    </>
-  );
 };
+
 export default UserDashboard;

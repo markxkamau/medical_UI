@@ -7,6 +7,10 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserDashboard from "./pages/UserDashboard";
+import UserDetail from "./pages/NewDesign/UserDetail";
+import UserMedication from "./pages/NewDesign/UserMedication";
+import UserDrugSchedules from "./pages/NewDesign/UserDrugSchedules";
+import UserHealthRecords from "./pages/NewDesign/UserHealthRecords";
 
 const App = () => {
   const [user, setUser] = useState(null); // Initial state is null
@@ -17,6 +21,7 @@ const App = () => {
   // Data Seeding to collect user details
   const [userList, setUserList] = useState([
     {
+      userId: 1,
       firstName: "Mark",
       lastName: "Kamau",
       condition: "Epilepsy",
@@ -24,6 +29,7 @@ const App = () => {
       password: "a",
     },
     {
+      userId: 2,
       firstName: "John",
       lastName: "Doe",
       condition: "asthma",
@@ -31,10 +37,64 @@ const App = () => {
       password: "s",
     },
   ]);
+
+  const updatedUsers = [
+    {
+      userId: "1",
+      name: "John Doe",
+      email: "john.doe@example.com",
+      medications: [
+        { id: "med1", name: "Aspirin", dosage: "50mg" },
+        { id: "med2", name: "Ibuprofen", dosage: "200mg" },
+      ], //fetch medication with userId
+      drugSchedules: [
+        { id: "ds1", time: "08:00 AM", medication: "Aspirin" },
+        { id: "ds2", time: "10:00 PM", medication: "Ibuprofen" },
+      ], // fetch drug schedule with userId
+      healthRecords: [
+        { id: "hr1", date: "2024-01-01", notes: "Routine check-up" },
+        { id: "hr2", date: "2024-02-15", notes: "Blood pressure check" },
+      ], //fetch health records with userId
+    },
+    {
+      userId: "2",
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      medications: [
+        { id: "med3", name: "Metformin", dosage: "500mg" },
+        { id: "med4", name: "Lisinopril", dosage: "10mg" },
+      ],
+      drugSchedules: [
+        { id: "ds3", time: "07:00 AM", medication: "Metformin" },
+        { id: "ds4", time: "06:00 PM", medication: "Lisinopril" },
+      ],
+      healthRecords: [
+        { id: "hr3", date: "2024-03-05", notes: "Dental check-up" },
+        { id: "hr4", date: "2024-04-10", notes: "Routine blood test" },
+      ],
+    },
+    // Add more user objects as needed
+  ];
+
+  const medication = [
+    { id: "med1", name: "Aspirin", dosage: "50mg" },
+    { id: "med2", name: "Ibuprofen", dosage: "200mg" },
+  ];
+
+  const drugSchedules = [
+    { id: "ds3", time: "07:00 AM", medication: "Metformin" },
+    { id: "ds4", time: "06:00 PM", medication: "Lisinopril" },
+  ];
+
+  const healthRecords = [
+    { id: "hr3", date: "2024-03-05", notes: "Dental check-up" },
+    { id: "hr4", date: "2024-04-10", notes: "Routine blood test" },
+  ];
+
   // Function to handle user creation
   // Happens on Registration
   function handleRegistration(newUser) {
-    //Altering newUser to a consistent structure for better/ easier backend understanding
+    //Altering newUser to a consistent structure for better/easier backend understanding
     let currentUser = {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
@@ -44,6 +104,7 @@ const App = () => {
     };
 
     //TODO: Connect to backend i.e. POST request to add new USER
+    //saveNew(currentUser);
 
     //Checking if email exists
     //Requires a GET request to crosscheck all other emails
@@ -59,7 +120,7 @@ const App = () => {
           console.log("Updated userList:", userList);
         }
       );
-      setUser(currentUser); // Set user to state
+      setUser(currentUser); // Set user to current usestate
       setLoginState(true);
     }
   }
@@ -127,50 +188,27 @@ const App = () => {
                 )
               }
             />
-            {/* <Route path="/dashboard" element={<Dashboard />} />; */}
-            {/* <Route path="/users" element={<UserList />} />; */}
-            {/* <Route path="/user/:userId" element={<UserDetail />} />; */}
-            {/* <Route path="/createUser" element={<CreateUser />} />; */}
-            {/* <Route path="/user/:userId" element={<UserDetail />}> */}
-            {/* <Route path="medications" element={<UserMedications />} /> */}
-            {/* <Route path="drug-schedules" element={<UserDrugSchedules />} /> */}
-            {/* <Route path="health-records" element={<UserHealthRecords />} /> */}
-            {/* </Route> */}
-            {/* <Route path="/medications" element={<MedicationList />} />; */}
-            {/* <Route */}
-            {/* path="/medication/:medicationId" */}
-            {/* element={<MedicationDetail />} */}
-            {/* /> */}
-            {/* <Route path="/createMedication" element={<CreateMedication />} />; */}
-            {/* <Route
-              path="/updateMedication/:medicationId"
-              element={<UpdateMedication />}
-            /> */}
-            {/* <Route path="/drug-schedules" element={<DrugScheduleList />} />; */}
-            {/* <Route
-              path="/drug-schedule/:scheduleId"
-              element={<DrugScheduleDetail />}
-            /> */}
-            {/* <Route
-              path="/createDrugSchedule"
-              element={<CreateDrugSchedule />}
-            /> */}
-            {/* <Route
-              path="/updateDrugSchedule/:scheduleId"
-              element={<UpdateDrugSchedule />}
-            /> */}
-            {/* <Route path="/drug-stocks" element={<DrugStockList />} />; */}
-            {/* <Route path="/drug-stock/:stockId" element={<DrugStockDetail />} />; */}
-            {/* <Route path="/createDrugStock" element={<CreateDrugStock />} />; */}
-            {/* <Route path="/health-records" element={<HealthRecordList />} />; */}
-            {/* <Route
-              path="/health-record/:userId"
-              element={<HealthRecordDetail />}
-            /> */}
-            {/* <Route
-              path="/createHealthRecord"
-              element={<CreateHealthRecord />}
-            /> */}
+            <Route
+              path="/user/:userId"
+              element={<UserDetail users={updatedUsers} />}
+            >
+              <Route
+                path="medications"
+                element={<UserMedication users={updatedUsers} />}
+              />
+              <Route
+                path="drug-schedules"
+                element={<UserDrugSchedules users={updatedUsers} />}
+              />
+              <Route
+                path="health-records"
+                element={<UserHealthRecords users={updatedUsers} />}
+              />
+            </Route>
+            {/* <Route path="/form/register" element={<RegistrationForm/>}/>
+            <Route path="/form/user" element={<UserProfilePage user={user}/>}/>
+            <Route path="/form/medication" element={<AddMedicationForm/> }/>
+            <Route path="/form/record" element={<AddHealthRecordForm/> }/> */}
           </Routes>
         </main>
         <Footer />
