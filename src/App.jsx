@@ -8,14 +8,18 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserDashboard from "./pages/UserDashboard";
 import UserDetail from "./pages/NewDesign/UserDetail";
-import UserMedication from "./pages/NewDesign/UserMedication";
 import UserDrugSchedules from "./pages/NewDesign/UserDrugSchedules";
 import UserHealthRecords from "./pages/NewDesign/UserHealthRecords";
+import MedicationForm from "./pages/MedicationForm";
+import axios from "axios";
 
 const App = () => {
   const [user, setUser] = useState(null); // Initial state is null
   const [userName, setUserName] = useState(null); //string variable
   const [loginState, setLoginState] = useState(false); // boolean to identify login and logout
+  const [credentials, setCredentials] = useState();
+  const [emailExists, setEmailExists] = useState(false);
+  const [newUser, setNewUser] = useState();
 
   //TODO: Make API request to get user information
   // Data Seeding to collect user details
@@ -26,7 +30,11 @@ const App = () => {
       lastName: "Kamau",
       condition: "Epilepsy",
       email: "markxkamau@gmail.com",
-      password: "a",
+      credentials: {
+        email: "markxkamau@gmail.com",
+        password: "a",
+        time: new Date(),
+      },
     },
     {
       userId: 2,
@@ -34,7 +42,11 @@ const App = () => {
       lastName: "Doe",
       condition: "asthma",
       email: "johndoe@gmail.com",
-      password: "s",
+      credentials: {
+        email: "johndoe@gmail.com",
+        password: "s",
+        time: new Date(),
+      },
     },
   ]);
 
@@ -93,54 +105,75 @@ const App = () => {
 
   // Function to handle user creation
   // Happens on Registration
-  function handleRegistration(newUser) {
-    //Altering newUser to a consistent structure for better/easier backend understanding
-    let currentUser = {
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      condition: newUser.condition,
-      email: newUser.email,
-      password: newUser.password,
+  async function handleRegistration(newUserDetails, credits) {
+    // Step 1: Set up the new user and credentials
+    setNewUser(newUserDetails);
+
+    let currentCredentials = {
+      email: credits.email,
+      password: credits.password,
+      time: credits.time,
     };
 
-    //TODO: Connect to backend i.e. POST request to add new USER
-    //saveNew(currentUser);
+    // Step 2: Create the current user object for consistent backend structure
+    let currentUser = {
+      firstName: newUserDetails.firstName,
+      lastName: newUserDetails.lastName,
+      condition: newUserDetails.condition,
+      email: newUserDetails.email,
+      password: currentCredentials.password,
+      dateTime: currentCredentials.time,
+    };
 
-    //Checking if email exists
-    //Requires a GET request to crosscheck all other emails
-    const emailExists = userList.some((user) => user.email === newUser.email);
-
-    if (emailExists) {
-      console.log("Email already exists");
-    } else {
-      setUserList(
-        (prevUserList) => [...prevUserList, newUser],
-        () => {
-          // Access the updated userList here
-          console.log("Updated userList:", userList);
-        }
+    // Step 3: Make POST request to backend to create the new user
+    try {
+      const response = await axios.post(
+        "http://localhost:8083/medical/api/new_patient",
+        currentUser
       );
-      setUser(currentUser); // Set user to current usestate
-      setLoginState(true);
+      console.log("User Created", response.data); // Confirm user creation
+
+      // Step 4: Check if email already exists
+      const patientList = await axios.get(
+        "http://localhost:8083/medical/api/all_patients"
+      );
+      const emailExists = patientList.data.some(
+        (patient) => patient.email === currentUser.email
+      );
+
+      console.log("Email Exists:", emailExists); // Log email existence status
+
+      // Step 5: Based on email existence, update the state
+      if (emailExists) {
+        console.log("Email already exists");
+      } else {
+        setUserList((prevUserList) => [...prevUserList, currentUser]); // Add user to the list
+        setUser(currentUser); // Set the current user state
+        setCredentials(currentCredentials); // Save credentials
+        setLoginState(true); // Set login state to true
+      }
+    } catch (error) {
+      console.log("Error during registration or email check:", error);
     }
   }
-
   // Happens on Login
   function handleLogin(loginData) {
     // Iterate over userList and check if the currentUser's email matches any email in userList
     const userFound = userList.find(
-      (person) =>
-        person.email === loginData.email &&
-        person.password === loginData.password
+      (person) => person.credentials.email === loginData.email
     );
     //What to do when user is found
-    if (userFound) {
+    if (!userFound) {
+      alert("User not found");
+    }
+    if (userFound.credentials.password != loginData.password) {
+      alert("User Credentials incorrect, Please check your email and password");
+      console.log(userFound);
+    } else {
       console.log("User found:", userFound);
       // Do something with the found user data, e.g., update state
       setUser(userFound);
       setLoginState(true);
-    } else {
-      alert("User not found");
     }
   }
 
@@ -157,7 +190,15 @@ const App = () => {
       const newUserName = `${user.firstName} ${user.lastName}`;
       setUserName(newUserName);
     }
+
+    if (newUser) {
+      const exists = userList.some((user) => user.email === newUser.email);
+      setEmailExists(exists);
+      console.log("Updated userList:", userList);
+    }
   }, [loginState, user]); // This effect runs whenever `loginState` changes
+
+  useEffect(()=>{},[]);
 
   return (
     <Router>
@@ -194,7 +235,7 @@ const App = () => {
             >
               <Route
                 path="medications"
-                element={<UserMedication users={updatedUsers} />}
+                element={<MedicationForm users={updatedUsers} />}
               />
               <Route
                 path="drug-schedules"

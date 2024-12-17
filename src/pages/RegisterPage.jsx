@@ -8,11 +8,13 @@ const RegisterPage = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [time, setTime] = useState(new Date());
   const [user, setUser] = React.useState();
+  const [auth, setAuth] = useState();
   const { onLogin } = props;
   const navigate = useNavigate();
 
-  const validateUser = (e) => {
+  const handleRegistration = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       const user = {
@@ -20,13 +22,21 @@ const RegisterPage = (props) => {
         lastName,
         condition,
         email,
-        password,
       };
+
+      setTime(new Date().toISOString);
+      const authDetails = {
+        email,
+        password,
+        time,
+      };
+
       setUser(user);
-      onLogin(user);
+      setAuth(authDetails);
+      onLogin(user, authDetails);
       navigate("/dashboard");
     } else {
-      console.log("Passwords do not match");
+      alert("Passwords do not match");
     }
   };
 
@@ -42,7 +52,7 @@ const RegisterPage = (props) => {
         <div className="w-1/2 flex items-center justify-center">
           <form
             className="w-full max-w-md bg-white p-8 rounded-lg shadow-md"
-            onSubmit={validateUser}
+            onSubmit={handleRegistration}
           >
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Create Account
@@ -173,7 +183,6 @@ const RegisterPage = (props) => {
       </div>
     </>
   );
-
 };
 
 export default RegisterPage;
