@@ -1,6 +1,7 @@
 import React from "react";
 
 function Design(props) {
+  
   const medications = [
     {
       id: 1,
@@ -23,6 +24,87 @@ function Design(props) {
       adherence: 88,
     },
   ];
+
+  const [userList, setUserList] = useState([
+    {
+      userId: 1,
+      firstName: "Mark",
+      lastName: "Kamau",
+      condition: "Epilepsy",
+      email: "markxkamau@gmail.com",
+      credentials: {
+        email: "markxkamau@gmail.com",
+        password: "a",
+        time: new Date(),
+      },
+    },
+    {
+      userId: 2,
+      firstName: "John",
+      lastName: "Doe",
+      condition: "asthma",
+      email: "johndoe@gmail.com",
+      credentials: {
+        email: "johndoe@gmail.com",
+        password: "s",
+        time: new Date(),
+      },
+    },
+  ]);
+
+  const updatedUsers = [
+    {
+      userId: "1",
+      name: "John Doe",
+      email: "john.doe@example.com",
+      medications: [
+        { id: "med1", name: "Aspirin", dosage: "50mg" },
+        { id: "med2", name: "Ibuprofen", dosage: "200mg" },
+      ], //fetch medication with userId
+      drugSchedules: [
+        { id: "ds1", time: "08:00 AM", medication: "Aspirin" },
+        { id: "ds2", time: "10:00 PM", medication: "Ibuprofen" },
+      ], // fetch drug schedule with userId
+      healthRecords: [
+        { id: "hr1", date: "2024-01-01", notes: "Routine check-up" },
+        { id: "hr2", date: "2024-02-15", notes: "Blood pressure check" },
+      ], //fetch health records with userId
+    },
+    {
+      userId: "2",
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      medications: [
+        { id: "med3", name: "Metformin", dosage: "500mg" },
+        { id: "med4", name: "Lisinopril", dosage: "10mg" },
+      ],
+      drugSchedules: [
+        { id: "ds3", time: "07:00 AM", medication: "Metformin" },
+        { id: "ds4", time: "06:00 PM", medication: "Lisinopril" },
+      ],
+      healthRecords: [
+        { id: "hr3", date: "2024-03-05", notes: "Dental check-up" },
+        { id: "hr4", date: "2024-04-10", notes: "Routine blood test" },
+      ],
+    },
+    // Add more user objects as needed
+  ];
+
+  const medication = [
+    { id: "med1", name: "Aspirin", dosage: "50mg" },
+    { id: "med2", name: "Ibuprofen", dosage: "200mg" },
+  ];
+
+  const drugSchedules = [
+    { id: "ds3", time: "07:00 AM", medication: "Metformin" },
+    { id: "ds4", time: "06:00 PM", medication: "Lisinopril" },
+  ];
+
+  const healthRecords = [
+    { id: "hr3", date: "2024-03-05", notes: "Dental check-up" },
+    { id: "hr4", date: "2024-04-10", notes: "Routine blood test" },
+  ];
+
 
   const handleTakeMedication = (medId) => {
     // Logic to mark the medication as taken
