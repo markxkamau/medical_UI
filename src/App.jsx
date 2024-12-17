@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserDashboard from "./pages/UserDashboard";
 import axios from "axios";
+import { createPatient, fetchPatients } from "./services/apiService";
 
 const App = () => {
   const [user, setUser] = useState(null); // Initial state is null
@@ -44,26 +45,18 @@ const App = () => {
     // Step 3: Make POST request to backend to create the new user
     try {
       // Step 4: Check if email already exists
-      const patientList = await axios.get(
-        "http://localhost:8083/medical/api/all_patients"
-      );
-      const emailExists = patientList.data.some(
+      const emailExists = userList.some(
         (patient) => patient.email === currentUser.email
       );
-
-      console.log("Email Exists:", emailExists); // Log email existence status
 
       // Step 5: Based on email existence, update the state
       if (emailExists) {
         console.log("Email already exists");
-        console.log("Credentials: ", credentials, "Login State", loginState);
+        setPatient(currentUser); // Set the current user state
       } else {
-        const response = await axios.post(
-          "http://localhost:8083/medical/api/new_patient",
-          currentUser
-        );
-        console.log("User Created", response.data); // Confirm user creation
+        setPatient(currentUser);
         setUser(currentUser); // Set the current user state
+
         setCredentials(currentCredentials); // Save credentials
         setLoginState(true); // Set login state to true
       }
@@ -74,26 +67,25 @@ const App = () => {
   // Happens on Login
   async function handleLogin(loginData) {
     // Iterate over userList and check if the currentUser's email matches any email in userList
-    const patientList = await axios.get(
-      "http://localhost:8083/medical/api/all_patients"
-    );
-    const userFound = patientList.data.find(
+    const userFound = userList.some(
       (patient) => patient.email === loginData.email
     );
     //What to do when user is found
     if (!userFound) {
       alert("User not found");
     } else {
-      if (userFound.password != loginData.password) {
+      const user = userList.find(
+        (patient) => patient.email === loginData.email
+      );
+      if (user.password !== loginData.password) {
         alert(
           "User Credentials incorrect, Please check your email and password"
         );
-        console.log(userFound);
       } else {
-        console.log("User found:", userFound);
         // Do something with the found user data, e.g., update state
-        setUser(userFound);
         setLoginState(true);
+        setPatient(user);
+        setUser(user);
       }
     }
   }
@@ -108,41 +100,40 @@ const App = () => {
   useEffect(() => {
     //Whenever a user logs in
     if (loginState) {
-      const newUserName = `${user.firstName} ${user.lastName}`;
+      const newUserName =
+        user.firstName && user.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : user.name;
       setUserName(newUserName);
     }
   }, [loginState]); // This effect runs whenever `loginState` changes
 
-
   //Post
   useEffect(() => {
     setLoading(true);
-    axios
-      .post("http://localhost:8083/medical/api/new_patient", patient)
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching patient data!", error);
-      });
+    if (Object.keys(patient).length !== 0) {
+      // Ensures you don't send an empty object
+      createPatient(patient);
+      setLoading(false);
+    }
   }, [user]);
 
   //Get
   // Runs once at the start of the program
   useEffect(() => {
-    //Get all patients information
     setLoading(true);
-    axios
-      .get("http://localhost:8083/medical/api/all_patients")
-      .then((response) => {
-        setUserList(response.data);
+
+    const getPatients = async () => {
+      try {
+        const users = await fetchPatients();
+        setUserList(users);
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching patient data!", error);
-      });
-  }, []);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    getPatients()
+  }, [loginState]);
 
   return (
     <Router>
@@ -152,28 +143,31 @@ const App = () => {
           callLogout={handleLogout}
           loginState={loginState}
         />
-        <main>
-          <Routes>
-            <Route path="/" exact element={<HomePage />} />
-            <Route
-              path="/login"
-              element={<LoginPage onLogin={handleLogin} />}
-            />
-            <Route
-              path="/register"
-              element={<RegisterPage onLogin={handleRegistration} />}
-            />
-            <Route
-              path="/dashboard"
-              element={
-                user && loginState ? (
-                  <UserDashboard patientInfo={user} />
-                ) : (
-                  <Navigate to="/" /> // Redirect to home-page
-                )
-              }
-            />
-            {/* <Route
+        {loading ? (
+          "Loading ..."
+        ) : (
+          <main>
+            <Routes>
+              <Route path="/" exact element={<HomePage />} />
+              <Route
+                path="/login"
+                element={<LoginPage onLogin={handleLogin} />}
+              />
+              <Route
+                path="/register"
+                element={<RegisterPage onLogin={handleRegistration} />}
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  user && loginState ? (
+                    <UserDashboard patientInfo={user} />
+                  ) : (
+                    <Navigate to="/" /> // Redirect to home-page
+                  )
+                }
+              />
+              {/* <Route
               path="/user/:userId"
               element={<UserDetail users={updatedUsers} />}
             >
@@ -190,12 +184,14 @@ const App = () => {
                 element={<UserHealthRecords users={updatedUsers} />}
               />
             </Route> */}
-            {/* <Route path="/form/register" element={<RegistrationForm/>}/>
+              {/* <Route path="/form/register" element={<RegistrationForm/>}/>
             <Route path="/form/user" element={<UserProfilePage user={user}/>}/>
             <Route path="/form/medication" element={<AddMedicationForm/> }/>
             <Route path="/form/record" element={<AddHealthRecordForm/> }/> */}
-          </Routes>
-        </main>
+            </Routes>
+          </main>
+        )}
+
         <Footer />
       </div>
     </Router>
