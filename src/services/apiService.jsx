@@ -44,3 +44,15 @@ export const createPatient = async (data) => {
     throw error;
   }
 };
+
+
+// Check Login Credentials
+export const loginUser = async (data) => {
+  try{
+    const response = await axios.post("http://localhost:8083/medical/api/auth/login", data);
+    return response.data;
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
+  }
+}

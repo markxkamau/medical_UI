@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = (props) => {
+const LoginPage = ({onLogin}) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [user, setUser] = React.useState();
-  const { onLogin } = props;
 
   const navigate = useNavigate();
 
-  const validateUser = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     // Confirm the password and email are not null
@@ -25,8 +24,6 @@ const LoginPage = (props) => {
 
     // Set the user in state (if needed for the parent component)
     setUser(currentUser);
-    console.log("Current User:", currentUser);
-
     // Pass the user data to the parent via onLogin
     onLogin(currentUser);
     navigate("/dashboard");
@@ -44,7 +41,7 @@ const LoginPage = (props) => {
         <div className="w-1/2 flex items-center justify-center">
           <form
             className="w-full max-w-md bg-white p-8 rounded-lg shadow-md"
-            onSubmit={validateUser}
+            onSubmit={handleLogin}
           >
             <h2 className="text-2xl font-semibold mb-6 text-center">Log in</h2>
 

@@ -7,19 +7,15 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserDashboard from "./pages/UserDashboard";
-import axios from "axios";
-import { createPatient, fetchPatients } from "./services/apiService";
+import { createPatient, fetchPatients, loginUser } from "./services/apiService";
 
 const App = () => {
   const [user, setUser] = useState(null); // Initial state is null
   const [userName, setUserName] = useState(null); //string variable
   const [loginState, setLoginState] = useState(false); // boolean to identify login and logout
-  const [credentials, setCredentials] = useState();
-  const [emailExists, setEmailExists] = useState(false);
   const [loading, setLoading] = useState(false);
   const [patient, setPatient] = useState({});
   const [userList, setUserList] = useState([]);
-  const [data, setData] = useState({});
 
   // Function to handle user creation
   // Happens on Registration
@@ -36,8 +32,8 @@ const App = () => {
     let currentUser = {
       firstName: newUserDetails.firstName,
       lastName: newUserDetails.lastName,
-      condition: newUserDetails.condition,
       email: newUserDetails.email,
+      condition: newUserDetails.condition,
       password: currentCredentials.password,
       dateTime: currentCredentials.time,
     };
@@ -52,13 +48,13 @@ const App = () => {
       // Step 5: Based on email existence, update the state
       if (emailExists) {
         console.log("Email already exists");
-        setPatient(currentUser); // Set the current user state
       } else {
+        // Both setPatient and setUser are used for different purposes
+        // *setPatient is used to send data to the backend and update the database
         setPatient(currentUser);
-        setUser(currentUser); // Set the current user state
-
-        setCredentials(currentCredentials); // Save credentials
-        setLoginState(true); // Set login state to true
+        //*setUser is used to update the state allowing access to the dashboard
+        setUser(currentUser);
+        setLoginState(true);
       }
     } catch (error) {
       console.log("Error during registration or email check:", error);
@@ -66,28 +62,37 @@ const App = () => {
   }
   // Happens on Login
   async function handleLogin(loginData) {
-    // Iterate over userList and check if the currentUser's email matches any email in userList
-    const userFound = userList.some(
-      (patient) => patient.email === loginData.email
-    );
-    //What to do when user is found
-    if (!userFound) {
-      alert("User not found");
-    } else {
-      const user = userList.find(
-        (patient) => patient.email === loginData.email
-      );
-      if (user.password !== loginData.password) {
-        alert(
-          "User Credentials incorrect, Please check your email and password"
-        );
-      } else {
-        // Do something with the found user data, e.g., update state
-        setLoginState(true);
-        setPatient(user);
-        setUser(user);
+    // Step 1: Make a POST request to the backend to check if the user exists and collecting their details if they do
+    setLoading(true);
+    const currentUser = await loginUser(loginData);
+
+    // Step 2: Confirm if there are details returned
+    currentUser
+      ? (() => {
+          // Step 3: Set the user state to true and update the user details
+          setUser(currentUser);
+          setLoginState(true);
+          setLoading(false);
+        })()
+      : console.log("Login Failed: Invalid Credentials");
+
+    /**async function handleLogin(loginData) {
+      try {
+        const response = await loginUser(loginData); // Make API call to login
+        if (response.token) {
+          // Store the token in an HTTP-only cookie or local storage
+          localStorage.setItem("authToken", response.token); // Or use cookies for added security
+
+          // You can also set user data directly here or fetch it once after login if needed
+          setUser(response.user);
+          setLoginState(true);
+        } else {
+          console.log("Login failed: Invalid credentials");
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
       }
-    }
+    }*/
   }
 
   //Happens on click of LogOut
@@ -106,34 +111,37 @@ const App = () => {
           : user.name;
       setUserName(newUserName);
     }
-  }, [loginState]); // This effect runs whenever `loginState` changes
-
+  }, [loginState, user]); // This effect runs whenever `loginState` and `user` changes
   //Post
   useEffect(() => {
-    setLoading(true);
     if (Object.keys(patient).length !== 0) {
-      // Ensures you don't send an empty object
-      createPatient(patient);
-      setLoading(false);
+      setLoading(true);
+      createPatient(patient)
+        .then(() => setLoading(false))
+        .catch((error) => {
+          console.error("Error creating patient:", error);
+          setLoading(false);
+        });
     }
-  }, [user]);
-
+  }, [patient]);
   //Get
-  // Runs once at the start of the program
+  // Runs once at the start of the program and on change of loginState
   useEffect(() => {
-    setLoading(true);
-
-    const getPatients = async () => {
-      try {
-        const users = await fetchPatients();
-        setUserList(users);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    getPatients()
-  }, [loginState]);
+    if (loginState) {
+      setLoading(true);
+      const getPatients = async () => {
+        try {
+          const users = await fetchPatients();
+          setUserList(users);
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getPatients();
+    }
+  }, [loginState]); // Only fetch when login state changes
 
   return (
     <Router>
@@ -163,7 +171,7 @@ const App = () => {
                   user && loginState ? (
                     <UserDashboard patientInfo={user} />
                   ) : (
-                    <Navigate to="/" /> // Redirect to home-page
+                    <Navigate to="/login" />
                   )
                 }
               />
