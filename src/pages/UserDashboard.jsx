@@ -7,50 +7,14 @@ import HealthStatus from "../components/HealthStatus";
 import Notification from "../components/Notification";
 
 function UserDashboard({ patientInfo }) {
-  //Drug input by patient so as to and to the backend > drugInputRequest
-  // const drugList = [
-  //   {
-  //     name: "Clobazam",
-  //     scientificName: "Clobazam",
-  //     size: 10,
-  //     packaging: "Tablet",
-  //     purpose: "Minor Seizures",
-  //     dosage: "10mg",
-  //     time: ["2100", "0200", "9000"],
-  //   },
-  // ];
+  const [medications, setMedications] = useState([]);
 
-  //Patient Login and Registration to Capture this information > patientDataRequest
-  // const patientInfo = {
-  //   name: "Mark Kamau",
-  //   email: "markxkamau@gmail.com",
-  //   condition: "Epilepsy",
-  //   image: "Not Found",
-  // };
+  async function updateMedication() {
+    const medList = await fetchMedications();
+    setMedications(medList);
+  }
 
-  //Backend request to capture this information > medicationListRequest
-  const medications = [
-    {
-      id: 1,
-      name: "Medication A",
-      dosage: "50mg",
-      frequency: "Once a day",
-      nextDoseTime: "8:00 AM",
-      stock: 10,
-      expiration: "2025-12-31",
-      adherence: 95,
-    },
-    {
-      id: 2,
-      name: "Medication B",
-      dosage: "100mg",
-      frequency: "Twice a day",
-      nextDoseTime: "12:00 PM",
-      stock: 3,
-      expiration: "2024-06-15",
-      adherence: 88,
-    },
-  ];
+  useEffect(() => {}, [medications]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -67,11 +31,10 @@ function UserDashboard({ patientInfo }) {
           <DrugStock medications={medications} />
           <HealthStatus medications={medications} />
           <Notification medications={medications} />
-        
         </div>
       </main>
     </div>
   );
-};
+}
 
 export default UserDashboard;

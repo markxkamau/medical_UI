@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserDashboard from "./pages/UserDashboard";
 import { createPatient, fetchPatients, loginUser } from "./services/apiService";
+import MedicationForm from "./pages/MedicationForm";
+import PatientScheduleForm from "./pages/PatientScheduleForm";
 
 const App = () => {
   const [user, setUser] = useState(null); // Initial state is null
@@ -169,12 +171,14 @@ const App = () => {
                 path="/dashboard"
                 element={
                   user && loginState ? (
-                    <UserDashboard patientInfo={user} />
+                    // <UserDashboard patientInfo={user} />
+                    <MedicationForm user={user}/>
                   ) : (
                     <Navigate to="/login" />
                   )
                 }
               />
+              <Route path="/medication" element={<MedicationForm user={user} />} />
               {/* <Route
               path="/user/:userId"
               element={<UserDetail users={updatedUsers} />}
