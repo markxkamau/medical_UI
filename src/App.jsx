@@ -35,7 +35,6 @@ const App = () => {
       firstName: newUserDetails.firstName,
       lastName: newUserDetails.lastName,
       email: newUserDetails.email,
-      condition: newUserDetails.condition,
       password: currentCredentials.password,
       dateTime: currentCredentials.time,
     };
@@ -171,8 +170,7 @@ const App = () => {
                 path="/dashboard"
                 element={
                   user && loginState ? (
-                    // <UserDashboard patientInfo={user} />
-                    <MedicationForm user={user}/>
+                    <UserDashboard patientInfo={user} />
                   ) : (
                     <Navigate to="/login" />
                   )

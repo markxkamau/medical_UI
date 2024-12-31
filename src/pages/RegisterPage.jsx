@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 const RegisterPage = (props) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = useState("");
-  const [condition, setCondition] = useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -20,7 +19,6 @@ const RegisterPage = (props) => {
       const user = {
         firstName,
         lastName,
-        condition,
         email,
       };
 
@@ -34,7 +32,7 @@ const RegisterPage = (props) => {
       setUser(user);
       setAuth(authDetails);
       onLogin(user, authDetails);
-      navigate("/dashboard");
+      navigate("/medication");
     } else {
       alert("Passwords do not match");
     }
@@ -89,23 +87,6 @@ const RegisterPage = (props) => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="condition"
-              >
-                Condition
-              </label>
-              <input
-                id="condition"
-                type="text"
-                placeholder="Enter your Condition"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                onChange={(e) => setCondition(e.target.value)}
-                value={condition}
                 required
               />
             </div>

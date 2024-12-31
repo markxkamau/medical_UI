@@ -20,10 +20,6 @@ function PatientInfo(props) {
                 <span className="font-bold w-24">Email:</span>
                 <p className="text-gray-700 ">{patient.email}</p>
               </li>
-              <li className="flex py-2">
-                <span className="font-bold w-24">Condition:</span>
-                <p className="text-gray-700">{patient.condition}</p>
-              </li>
             </ul>
           </div>
           <div

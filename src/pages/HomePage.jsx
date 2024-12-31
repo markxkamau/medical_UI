@@ -12,7 +12,7 @@ const HomePage = () => {
               Welcome to YourApp
             </h2>
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
-              YourApp is here to make your life easier with.
+              YourApp is here to make your life easier.
             </p>
             <Link
               to="/register"

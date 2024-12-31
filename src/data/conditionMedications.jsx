@@ -188,6 +188,9 @@ export const conditionMedications = {
     { medicationId: "med178", name: "Trazodone", dosages: ["50mg", "100mg"] },
     { medicationId: "med179", name: "Lorazepam", dosages: ["0.5mg", "1mg"] },
     { medicationId: "med180", name: "Diphenhydramine", dosages: ["25mg", "50mg"] }
+  ],
+  too_happy: [
+    { medicationId: "med180", name: "Second Wife", dosages: ["1"] }
   ]
 };
 

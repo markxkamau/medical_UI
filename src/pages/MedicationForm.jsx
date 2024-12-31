@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { conditionMedications } from "../data/conditionMedications";
 
 const MedicationForm = ({ user }) => {
-  const [selectedCondition, setSelectedCondition] = useState(user.condition.toLowerCase());
+  const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedMedication, setSelectedMedication] = useState("");
   const [selectedDosage, setSelectedDosage] = useState("");
-  const [schedule, setSchedule] = useState("");
-
+  const [schedule, setSchedule] = useState([]);
+  const [numberOfIntakes, setNumberOfIntakes] = useState(0);
   //Drug input by patient so as to and to the backend > drugInputRequest
 
   // Handle the condition change
@@ -14,16 +14,30 @@ const MedicationForm = ({ user }) => {
     setSelectedCondition(e.target.value);
     setSelectedMedication(""); // Reset medication when condition changes
     setSelectedDosage(""); // Reset dosage when condition changes
+    setNumberOfIntakes(0); // Reset number of intakes when condition changes
   };
 
   // Handle the medication change
   const handleMedicationChange = (e) => {
     setSelectedMedication(e.target.value);
+    setSelectedDosage(""); // Reset dosage when condition changes
+    setNumberOfIntakes(0); // Reset number of intakes when condition changes
   };
 
   // Handle the dosage change
   const handleDosageChange = (e) => {
     setSelectedDosage(e.target.value);
+    setNumberOfIntakes(0); // Reset number of intakes when condition changes
+  };
+
+  const handleIntakeChange = (e) => {
+    setNumberOfIntakes(e.target.value);
+  };
+
+  const handleTimeChange = (index, value) => {
+    const updatedSchedule = [...schedule];
+    updatedSchedule[index] = value; // Update the specific dose's time
+    setSchedule(updatedSchedule);
   };
 
   // Handle the form submission (add medication)
@@ -36,7 +50,6 @@ const MedicationForm = ({ user }) => {
       schedule: schedule,
     });
   };
-
 
   // Get the relevant medications based on the selected condition
   const medicationsForCondition = conditionMedications[selectedCondition] || [];
@@ -125,23 +138,49 @@ const MedicationForm = ({ user }) => {
                       ))}
                   </select>
                 </div>
+                {selectedDosage && (
+                  <>
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="numberOfIntakes"
+                      >
+                        Input Frequency
+                      </label>
+                      <input
+                        id="numberOfIntakes"
+                        value={numberOfIntakes}
+                        onChange={handleIntakeChange}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                      />
+                    </div>
 
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="scheduleTime"
-                  >
-                    Select Schedule Time
-                  </label>
-                  <input
-                    id="scheduleTime"
-                    type="time"
-                    value={schedule}
-                    onChange={(e) => setSchedule(e.target.value)}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    required
-                  />
-                </div>
+                    {numberOfIntakes > 0 &&
+                      Array.from({ length: numberOfIntakes }).map(
+                        (_, index) => (
+                          <div key={index} className="mb-4">
+                            <label
+                              className="block text-gray-700 text-sm font-bold mb-2"
+                              htmlFor={`scheduleTime-${index}`}
+                            >
+                              Select Schedule Time for Dose {index + 1}
+                            </label>
+                            <input
+                              id={`scheduleTime-${index}`}
+                              type="time"
+                              value={schedule[index] || ""}
+                              onChange={(e) =>
+                                handleTimeChange(index, e.target.value)
+                              }
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              required
+                            />
+                          </div>
+                        )
+                      )}
+                  </>
+                )}
               </>
             )}
           </>
